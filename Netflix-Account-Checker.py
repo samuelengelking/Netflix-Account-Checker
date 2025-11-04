@@ -62,6 +62,23 @@ class Capture:
 
 def Load():
     global Combos, fname
+    # Prefer a local combos.txt if it exists; otherwise fall back to a file dialog.
+    default_combo = os.path.join(os.getcwd(), 'combos.txt')
+    if os.path.isfile(default_combo):
+        fname = os.path.splitext(os.path.basename(default_combo))[0]
+        try:
+            with open(default_combo, 'r', encoding='utf-8', errors='ignore') as e:
+                lines = e.readlines()
+                Combos = list(set(lines))
+                print(Fore.LIGHTBLUE_EX+f"Loaded combos from {default_combo}")
+                print(Fore.LIGHTBLUE_EX+f"[{str(len(lines) - len(Combos))}] Dupes Removed.")
+                print(Fore.LIGHTBLUE_EX+f"[{len(Combos)}] Combos Loaded.")
+                return
+        except Exception:
+            print(Fore.LIGHTRED_EX+"Your combos.txt file is probably harmed.")
+            time.sleep(2)
+
+    # Fallback to asking the user to choose a combo file via dialog
     filename = filedialog.askopenfile(mode='rb', title='Choose a Combo file',filetypes=(("txt", "*.txt"), ("All files", "*.txt")))
     if filename is None:
         print(Fore.LIGHTRED_EX+"Invalid File.")
@@ -70,6 +87,7 @@ def Load():
     else:
         fname = os.path.splitext(os.path.basename(filename.name))[0]
         try:
+            # Open the chosen file path (filename.name) and read combos
             with open(filename.name, 'r+', encoding='utf-8') as e:
                 lines = e.readlines()
                 Combos = list(set(lines))
