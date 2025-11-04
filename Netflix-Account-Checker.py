@@ -62,7 +62,7 @@ class Capture:
 
 def Load():
     global Combos, fname
-    filename = filedialog.askopenfile(mode='rb', title='Choose a Combo file',filetype=(("txt", "*.txt"), ("All files", "*.txt")))
+    filename = filedialog.askopenfile(mode='rb', title='Choose a Combo file',filetypes=(("txt", "*.txt"), ("All files", "*.txt")))
     if filename is None:
         print(Fore.LIGHTRED_EX+"Invalid File.")
         time.sleep(2)
@@ -82,7 +82,7 @@ def Load():
 
 def Proxys():
     global proxylist
-    fileNameProxy = filedialog.askopenfile(mode='rb', title='Choose a Proxy file',filetype=(("txt", "*.txt"), ("All files", "*.txt")))
+    fileNameProxy = filedialog.askopenfile(mode='rb', title='Choose a Proxy file',filetypes=(("txt", "*.txt"), ("All files", "*.txt")))
     if fileNameProxy is None:
         print(Fore.LIGHTRED_EX+"Invalid File.")
         time.sleep(2)
@@ -113,7 +113,7 @@ def logscreen():
 
 def cuiscreen():
     global cpm
-    os.system('cls')
+    os.system('clear')
     cmp1 = cpm
     cpm = 0
     print(logo)
@@ -268,7 +268,7 @@ def get_proxies():
 def Main():
     global proxytype, screen
     utils.set_title("AR NETFLIX")
-    os.system('cls')
+    os.system('clear')
     try:
         loadconfig()
     except:
